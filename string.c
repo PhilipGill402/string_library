@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 int string_length(const char* s){
     int len = 0;
@@ -41,14 +42,20 @@ int string_n_compare(const char* s1, const char* s2, int n){
     return ascii1 - ascii2;
 }
 
-char* string_copy(char* dst, char* src){
+void string_copy(char* dst, char* src){
+    while (*src != '\0'){
+        *dst = *src;
+        src++;
+        dst++;
+    }     
     
+    *dst = '\0';
 }
 
 int main(){
     char str[] = "ABC";
-    char str2[] = "AB";
-    printf("%d\n", string_n_compare(str, str2, 2));
-    printf("%d\n", strncmp(str, str2, 2)); 
+    char str2[1];
+    strcpy(str2, str);
+    printf("%s\n", str2);
     return 0;
 }
