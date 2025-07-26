@@ -52,10 +52,96 @@ void string_copy(char* dst, char* src){
     *dst = '\0';
 }
 
+void string_n_copy(char* dst, char* src, int n){
+    while (*src != '\0' && n-- > 0){
+        *dst = *src;
+        src++;
+        dst++;
+    }
+    *dst = '\0';
+}
+
+void string_concatenation(char* dst, char* src){
+    while (*dst != '\0'){
+        dst++;
+    }
+
+    while (*src != '\0'){
+        *dst = *src;
+        src++;
+        dst++;
+    }
+}
+
+void string_n_concatenation(char* dst, char* src, int n){
+    while (*dst != '\0'){
+        dst++;
+    }
+
+    while (*src != '\0' && n-- > 0){
+        *dst = *src;
+        src++;
+        dst++;
+    }
+}
+
+char* string_first_char(char* str, int c){
+    char ch = (char)c;
+    char* c_ptr = NULL; 
+
+    while (*str != ch && *str != '\0'){
+        str++;
+    }
+
+    if (*str == ch){
+        c_ptr = str;
+    }
+    
+    return c_ptr;
+    
+}
+
+char* string_last_char(char* str, int c){
+    char ch = (char)c;
+    char* c_ptr = NULL;
+
+    while (*str != '\0'){
+        if (*str == ch){
+            c_ptr = str;
+        }
+        str++;
+    }
+
+    return c_ptr;
+}
+
+char* string_first_substring(char* str, char* substr){
+    char* found = NULL;
+    char* substr_reset = substr;
+    while (*str != '\0'){
+        if (*str == *substr){
+            char* secondptr = str;
+            while (*secondptr != '\0' && *secondptr == *substr){
+                secondptr++;
+                substr++;
+            }
+            if (*substr == '\0'){
+                found = str;
+                break;
+            } else {
+                substr = substr_reset;
+            }
+        }
+        str++;
+    }
+     
+    return found;
+}
+
 int main(){
-    char str[] = "ABC";
-    char str2[1];
-    strcpy(str2, str);
-    printf("%s\n", str2);
+    char str[] = "ABCBCDEFG";
+    char str2[50] = "BCD";
+    char* c = string_first_substring(str, str2);
+    printf("%s\n", c); 
     return 0;
 }
