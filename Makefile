@@ -1,33 +1,26 @@
+# Makefile
+
 # Compiler and flags
-CC = gcc 
-CFLAGS = -Wall -Wextra -g -MMD -MP
+CXX = gcc
 
-# Collect all C files and corresponding object and dependency files
-SRC = $(wildcard *.c)
-OBJ = $(SRC:.c=.o)
-DEPS = $(SRC:.c=.d)
+# Sources and objects
+SRC = $(wildcard src/*.c)
+OBJ = $(patsubst src/%.c,src/%.o,$(SRC))
 
-# Output binary name
-TARGET = program
+# Output binary
+TARGET = string 
 
-# Default target: build the program
+# Default rule
 all: $(TARGET)
 
-# Link object files to create the executable
+# Linking
 $(TARGET): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $(TARGET)
+	$(CXX) $(OBJ) -o $(TARGET)
 
-# Compile .c files to .o, generating .d files for header dependencies
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+# Compile .cpp to .o
+src/%.o: src/%.c
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Include auto-generated dependency files
--include $(DEPS)
-
-# Run the program
-run: $(TARGET)
-	./$(TARGET)
-
-# Clean up compiled files and the executable
+# Clean build artifacts
 clean:
-	rm -f $(OBJ) $(DEPS) $(TARGET)
+	rm -f src/*.o $(TARGET)
