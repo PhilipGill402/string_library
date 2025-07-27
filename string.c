@@ -1,6 +1,4 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
+#include "string.h"
 
 int string_length(const char* s){
     int len = 0;
@@ -172,12 +170,5 @@ char* string_tokenizer(char* str, int delimiter){
 }
 
 int main(){
-    char str[] = "ABCAl,BCLKASJ,,CCB,";
-    char* token = string_tokenizer(str, ',');
-    while (token != NULL
-    ){
-        printf("%s\n", token);
-        token = string_tokenizer(NULL, ',');
-    }
     return 0;
 }
