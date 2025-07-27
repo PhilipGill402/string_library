@@ -138,10 +138,46 @@ char* string_first_substring(char* str, char* substr){
     return found;
 }
 
+char* string_tokenizer(char* str, int delimiter){
+    static char* string = NULL;
+    if (str != NULL){
+        string = str;
+    }
+    
+    if (string == NULL){
+        return NULL;
+    }
+    
+    while (*string != '\0' && *string == (char)delimiter){
+        string++;
+    }
+    
+    if (*string == '\0'){
+        string = NULL; 
+        return NULL;
+    }
+
+    char* start = string;
+    
+    while (*string != '\0' && *string != (char)delimiter){
+        string++;
+    }
+
+    if (*string){
+        *string = '\0';
+        string++;
+    }
+    
+    return start;
+}
+
 int main(){
-    char str[] = "ABCBCDEFG";
-    char str2[50] = "BCD";
-    char* c = string_first_substring(str, str2);
-    printf("%s\n", c); 
+    char str[] = "ABCAl,BCLKASJ,,CCB,";
+    char* token = string_tokenizer(str, ',');
+    while (token != NULL
+    ){
+        printf("%s\n", token);
+        token = string_tokenizer(NULL, ',');
+    }
     return 0;
 }
